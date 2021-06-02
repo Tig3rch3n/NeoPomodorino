@@ -6,16 +6,16 @@ A Friend asked me if I could build him a [Pomodoro style timer](https://en.wikip
 ![First Render](Images/Early_Render.png)
 
 BOM:
-~10cm DN75 'HT-Rohr' The German Standard Drainpipe (cut it in a 55° Angle)
-3D Printed Top/Bottom
-Lasercut/CNC Milled Acrylic Front
-Adafruit Neopixel with 24 LEDs
-7-10 Dupont-Jumper Wire
-Cherry MX Switch
-USB-Micro Male Breakout
-USB-C Female Breakout
-Arduino Nano
-Piezo Buzzer
+- ~10cm DN75 'HT-Rohr' The German Standard Drainpipe (cut it in a 55° Angle)
+- 3D Printed Top/Bottom
+- Lasercut/CNC Milled Acrylic Front
+- Adafruit Neopixel with 24 LEDs
+- 7-10 Dupont-Jumper Wire
+- Cherry MX Switch
+- USB-Micro Male Breakout
+- USB-C Female Breakout
+- Arduino Nano
+- Piezo Buzzer
 
 I developed my own Housing and plan to add a Piezo Buzzer that does a short 'Blip' noise as the Work & Break timer runs out. (But not Working yet)
 Each 30/10/5s before the Work/Break switch.
