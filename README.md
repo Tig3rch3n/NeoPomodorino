@@ -3,6 +3,8 @@
 
 A Friend asked me if I could build him a [Pomodoro style timer](https://en.wikipedia.org/wiki/Pomodoro_Technique)
 
+![First Render](Images/Early_Render.png)
+
 BOM:
 ~10cm DN75 'HT-Rohr' The German Standard Drainpipe (cut it in a 55° Angle)
 3D Printed Top/Bottom
@@ -30,7 +32,6 @@ The Switch goes to GND and Pin 2 and the Buzzer goes to GND and to Pin 3 with a 
 
 The Prints take about 1 1/2h and ~29g PETG.
 
-![First Render](Images/Early_Render.png)
 ![The Inside](Images/Inside.jpg)
 
 
