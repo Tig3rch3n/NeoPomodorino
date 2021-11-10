@@ -1,10 +1,23 @@
 #include <Adafruit_NeoPixel.h>
 
-//Times (Defaults in Minutes)
+//Time                              Defaults after the //
 #define POMODORO_LIMIT 4            //4
 #define POMODORO_TIME  25           //25
 #define SHORT_PAUSE    5            //5
 #define LONG_PAUSE     25           //25
+#define MULTIPLICATOR  60000        //60000
+
+//Debugging Timer
+//#define POMODORO_TIME  1           //(1/6000=6 Seconds)
+//#define SHORT_PAUSE    1           //
+//#define LONG_PAUSE     1           //
+//#define MULTIPLICATOR  6000        //
+
+//IO Stuff
+#define BUTTON_PIN     2
+#define BUZZER_PIN     3
+#define PIXEL_PIN      6
+#define PIXEL_COUNT    24
 
 //Brightness
 #define LUMINANCE      20
@@ -15,10 +28,12 @@
 #define PAUSE_LONG_color  WHITE               //GREEN
 #define TIMER_off OFF
 
-// Timer Break Color
+// Break Timer Colour
 #define POMODORO_start_animation WHITE_b      //RED_b
 #define POMODORO_s_pause_animation ORANGE_b   //YELLOW_b
 #define POMODORO_l_pause_animation RED_b      //GREEN_b
+
+//-------------------------------------------------------
 
 // Timer Color Chart       LED Count, RED, GREEN, BLUE
 #define OFF     0, 0, 0
@@ -40,10 +55,7 @@
 #define GREEN_b   0, LUMINANCE, 0
 #define CYAN_b    0, LUMINANCE /10, LUMINANCE /10
 
-//IO Stuff
-#define BUTTON_PIN     2
-#define PIXEL_PIN      6
-#define PIXEL_COUNT    24
+
 
 enum State
 {
@@ -73,8 +85,8 @@ void setup()
   pinMode(BUTTON_PIN, INPUT_PULLUP);
   ring.begin();
   ring.show();
-  
   turnOff();
+  pinMode(BUZZER_PIN,OUTPUT);
 }
 
 void loop()
@@ -122,10 +134,25 @@ void turnOff()
 
 void startPomodoro()
 {
+  tone(BUZZER_PIN, 800); // Send 500Hz sound signal...
+  delay(50);        // ...for 50ms
+  noTone(BUZZER_PIN);     // Stop sound...
+  delay(50);        // ...for 50ms
+
+  tone(BUZZER_PIN, 500); // Send 500Hz sound signal...
+  delay(50);        // ...for 50ms
+  noTone(BUZZER_PIN);     // Stop sound...
+  delay(50);        // ...for 50ms
+
+  tone(BUZZER_PIN, 800); // Send 1KHz sound signal...
+  delay(50);        // ...for 10ms
+  noTone(BUZZER_PIN);     // Stop sound...
+  delay(1);        // ...for 1ms
+
   pomodoro = (pomodoro % 4) + 1;
   blink((PIXEL_COUNT * pomodoro) / 4);
   starttime = millis();
-  duration = POMODORO_TIME * 60000;
+  duration = POMODORO_TIME * MULTIPLICATOR; //60000
   currentState = Pomodoro;
   initLeds();
 }
@@ -135,12 +162,37 @@ void startPause()
   starttime = millis();
   if (pomodoro < 4)
   {
-    duration = SHORT_PAUSE * 60000;
+    tone(BUZZER_PIN, 400); // Double Beep
+    delay(30);
+    noTone(BUZZER_PIN);
+    delay(50);
+    
+    tone(BUZZER_PIN, 400);
+    delay(30);
+    noTone(BUZZER_PIN);
+    delay(1);
+    
+    duration = SHORT_PAUSE * MULTIPLICATOR; //60000
     currentState = ShortPause;
   }
   else
   {
-    duration = LONG_PAUSE * 60000;
+    tone(BUZZER_PIN, 400); //6 Beeps Scale
+    delay(50);
+    tone(BUZZER_PIN, 800);
+    delay(50);
+    tone(BUZZER_PIN, 1200);
+    delay(50);
+    tone(BUZZER_PIN, 1600);
+    delay(50);
+    tone(BUZZER_PIN, 2000);
+    delay(50);
+    tone(BUZZER_PIN, 2200);
+    delay(50);
+    noTone(BUZZER_PIN);
+    delay(1);
+    
+    duration = LONG_PAUSE * MULTIPLICATOR; //60000
     currentState = LongPause;
   }
   initLeds();
